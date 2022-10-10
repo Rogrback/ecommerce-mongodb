@@ -1,4 +1,11 @@
 import express from 'express'
+import authValidator from './middlewares/authValidator.js'
+import {
+  authRoutes,
+  userRoutes,
+  productRoutes,
+  cartRoutes,
+} from './routes/index.js'
 
 const api = express()
 
@@ -11,6 +18,12 @@ api.get('/status', (_, res) => {
   });
 });
 
-//Missing: Routes
+// Middlewares
+api.use(authRoutes)
+
+api.use(authValidator)
+api.use(userRoutes)
+api.use(productRoutes)
+api.use(cartRoutes)
 
 export default api
